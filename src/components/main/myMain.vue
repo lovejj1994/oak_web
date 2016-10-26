@@ -1,17 +1,14 @@
 <template>
-  <main id="myMain">
-    <myJumbotron></myJumbotron>
-    <myContainer></myContainer>
-  </main>
+	<main id="myMain">
+		<myContainer></myContainer>
+	</main>
 </template>
 
 <script>
-import myJumbotron from './myJumbotron'
 import myContainer from './myContainer'
 export default {
   name: 'myMain',
   components: {
-    myJumbotron,
     myContainer
   }
 }
@@ -19,4 +16,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	main {
+		main {
+			position: relative;
+			background-color: #F7F7F7;
+		}
+	}
 </style>

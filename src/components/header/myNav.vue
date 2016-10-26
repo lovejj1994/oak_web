@@ -1,29 +1,44 @@
 <template>
-  <header id="myNav">
-    <nav class="navbar navbar-static-top navbar-dark bg-inverse">
-      <img class="navbar-brand" src="~assets/img/oak_logo.png" style=""></img>
-      <!--<a class="navbar-brand" href="#"></a>-->
-      <ul class="nav navbar-nav">
-        <li class="nav-item active">
-          <router-link :to="{ name: 'routeruser',params: { id: 123 } }" class="nav-link">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+	<header id="myNav">
+		<nav class="navbar navbar-static-top navbar-dark bg-inverse" v-bind:class="{ active: isActive, 'mynav': hasShow }">
+			<img class="navbar-brand" src="~assets/img/oak_logo.png" style=""></img>
+			<!--<a class="navbar-brand" href="#"></a>-->
+			<ul class="nav navbar-nav">
+				<li class="nav-item active">
+					<router-link to="/" class="nav-link">Home</router-link>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">About</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Contact</a>
+				</li>
+			</ul>
+			<myNavRight></myNavRight>
+		</nav>
+	</header>
 </template>
 
 <script>
+import myNavRight from './myNavRight'
+import store from '../../vuex-config'
 export default {
   name: 'myNav',
+  store,
+  components: {
+    myNavRight
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      isActive: true,
+      hasShow: true
+    }
+  },
+  computed: {
+    // a computed getter
+    hasShow: function () {
+      // `this` points to the vm instance
+      return this.$store.state.routerIsRun
     }
   }
 }
@@ -31,15 +46,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  nav{
-    background-color: transparent!important;
-  }
-  img{
-    height: 3rem;
-    margin-top:-0.325rem;
-    margin-left:7rem;
-  }
-  .navbar-nav .nav-link{
-    padding-left: 0.725rem;
-  }
+	header {
+		position: relative;
+		line-height: 1rem;
+	}
+	
+	nav {
+		height: 2.80rem;
+	}
+	
+	.mynav {
+		background-color: transparent!important;
+	}
+	
+	img {
+		height: 3rem;
+		margin-top: -0.65rem;
+		margin-left: 7rem;
+	}
+	
+	.navbar-nav .nav-link {
+		padding-left: 0.725rem;
+	}
 </style>
