@@ -1,17 +1,14 @@
 <template>
-  <div id='myContainer' class="container">
-    <router-view></router-view>
-    <myWord></myWord>
-  </div>
+	<div id='myContainer'>
+		<transition name="fade" mode="out-in">
+			<router-view></router-view>
+		</transition>
+	</div>
 </template>
 
 <script>
-import myWord from './myWord'
 export default {
-  name: 'myContainer',
-  components: {
-    myWord
-  }
+  name: 'myContainer'
 }
 </script>
 

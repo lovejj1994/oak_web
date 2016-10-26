@@ -1,7 +1,9 @@
 <template>
-	<footer>
+	<footer class="footer">
 		<hr />
-		<p>© To the oak tree 2016</p>
+		<div>
+			<span>© To the oak tree 2016 </span>&nbsp;&nbsp;<span id='icp'>赣ICP备16010219号</span>
+		</div>
 	</footer>
 </template>
 
@@ -13,9 +15,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	footer{
-		margin-left:auto; 
-		margin-right:auto;
-		width:90%;
+	footer {
+		margin: auto;
+		display:block;
+		height:4rem;
+		width: 90%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+	
+	#icp {
+		font-size: smaller;
 	}
 </style>
