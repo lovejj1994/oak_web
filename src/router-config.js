@@ -38,17 +38,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.fullPath === '/' && from.fullPath === '/') {
+  if (to.fullPath !== '/') {
+    store.commit('routerIsRun', false)
+  } else {
     store.commit('routerIsRun', true)
-    next()
-  } else
-    if (to.fullPath === '/') {
-      store.commit('routerIsRun', true)
-      next()
-    } else {
-      store.commit('routerIsRun', false)
-      next()
-    }
+  }
+  next()
 })
 
 export default router
