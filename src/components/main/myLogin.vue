@@ -125,7 +125,7 @@ export default {
 
 			this.$http({
             method:'POST',
-            url:'http://localhost:8081/login',
+            url:'http://www.xxywithpq.cn:8080/login',
             headers: headers,
 						}).then((response) => {
 				 if(response.data.flag === true){
