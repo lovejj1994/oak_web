@@ -21,13 +21,18 @@ export default {
 </script>
 
 <style>
-	#app{
+	#app {
 		position: relative;
 		padding-bottom: 4rem;
 		min-height: 100%;
 	}
-	.fade-enter-active{
+	
+	.fade-enter-active {
 		transition: opacity 0.8s ease;
+	}
+	
+	.fade-leave-active {
+		transition: opacity .4s ease;
 	}
 	
 	.fade-enter,
