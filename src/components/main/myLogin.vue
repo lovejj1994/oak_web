@@ -1,6 +1,6 @@
 <template>
 	<div id='myLogin'>
-		<h1 v-bind:class="{ active: true, 'loginFormDown': hasShow }">
+		<h1 v-bind:class="{ 'loginFormDown': loginFormHasShow }">
 			<transition mode="out-in" v-on:before-enter="beforeEnter" v-on:enter="enter" name="fade">
 				<div v-if="fontHasShow" key="Sign into">
 					Sign into
@@ -11,17 +11,38 @@
 			</transition>
 			Oak</h1>
 
-		<div v-bind:class="{ active: true, 'animated zoomOut': hasShow }" id="loginForm">
+		<div id="collapseExample" v-bind:class="{'animated shake': errShow}" v-show="errShow" class="alert alert-danger">
+			{{ validator.userNameErrMsg }}<br v-show="brHasShow" /> {{ validator.passWordErrMsg }}
+		</div>
+		<div id="loginForm" v-bind:class="{ 'animated zoomOut': loginFormHasShow }">
 			<hr/>
 			<form>
-				<div class="form-group">
-					<input type="text" class="form-control" id="username" v-model.trim="userName" placeholder="Username">
-				</div>
-				<div class="form-group">
-					<!--按键监听最好放在input标签-->
-					<input type="password" class="form-control" id="password" v-model.trim="passWord" placeholder="Password" v-on:keyup.enter="submit">
-				</div>
-				<button type="button" class="btn btn-primary" v-on:click="submit" >Sign in</button>
+				<template v-if="validator.userNamefistShow">
+					<div class="form-group">
+						<input type="text" class="form-control" id="username" v-model.trim="form.userName" placeholder="Username" v-on:blur="usernameBlur">
+					</div>
+				</template>
+				<template v-else>
+					<div class="form-group" v-bind:class="{'has-success': validator.userNameValidation, 'has-danger': !validator.userNameValidation}">
+						<input type="text" class="form-control" id="username" v-model.trim="form.userName" placeholder="Username" v-on:blur="usernameBlur"
+							v-bind:class="{'form-control-success': validator.userNameValidation, 'form-control-danger': !validator.userNameValidation}">
+					</div>
+				</template>
+				<template v-if="validator.passWordfistShow">
+					<div class="form-group">
+						<!--按键监听最好放在input标签-->
+						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
+							v-on:blur="passwordBlur">
+					</div>
+				</template>
+				<template v-else>
+					<div class="form-group" v-bind:class="{'has-success': validator.passWordValidation, 'has-danger': !validator.passWordValidation}">
+						<!--按键监听最好放在input标签-->
+						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
+							v-on:blur="passwordBlur" v-bind:class="{'form-control-success': validator.passWordValidation, 'form-control-danger': !validator.passWordValidation}">
+					</div>
+				</template>
+				<button type="button" class="btn btn-primary" v-on:click="submit">Sign in</button>
 			</form>
 		</div>
 	</div>
@@ -30,25 +51,64 @@
 <script>
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
-// import resource from '../../vue-resource-config' 
-$.ajaxSetup({ cache: false })
 export default {
   name: 'myLogin',
 	store,
   data () {
     return {
-      userName: '',
-      passWord: '',
-			msg: 'Sign into',
+			form:{
+				userName: '',
+      	passWord: ''
+			},
 			fontHasShow: true,
-      hasShow: false
+      loginFormHasShow: false,
+			validator:{
+				userNamefistShow: true,
+				passWordfistShow: true,
+				userNameValidation: false,
+				passWordValidation: false,
+				userNameErrMsg: '',
+				passWordErrMsg: '',
+			},
+			errShow:false,
+			brHasShow:false
     }
   },
+	computed:{
+		errShow: function(){
+			return '' !== this.validator.userNameErrMsg || '' !== this.validator.passWordErrMsg
+		},
+		brHasShow: function(){
+			return '' !== this.validator.userNameErrMsg && '' !== this.validator.passWordErrMsg
+		}
+	},
 	ready: function () {
-    //这里是vue初始化完成后执行的函数
-    console.info('初始化')
   },
   methods: { 
+		usernameBlur: function () {
+      if('' === this.form.userName){
+				this.validator.userNamefistShow = false
+				this.validator.userNameValidation = false
+				this.validator.userNameErrMsg = 'Please enter your username'
+				this.validator.errShow = true
+			}else{
+				this.validator.userNamefistShow = false
+				this.validator.userNameValidation = true
+				this.validator.userNameErrMsg = ''
+			}	
+    },
+		passwordBlur: function () {
+      if('' === this.form.passWord){
+				this.validator.passWordfistShow = false
+				this.validator.passWordValidation = false
+				this.validator.passWordErrMsg = 'Please enter your password'
+				this.errShow = true
+			}else{
+				this.validator.passWordfistShow = false
+				this.validator.passWordValidation = true
+				this.validator.passWordErrMsg = ''
+			}	
+    },
 		beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -57,8 +117,11 @@ export default {
       Velocity(el, { fontSize: '1em' }, { complete: done })
     },
     submit: function () {
+			if(this.errShow)
+				return
+
       const headers = {}
-      headers.authorization = "Basic " + btoa(this.userName + ":" + this.passWord)
+      headers.authorization = "Basic " + btoa(this.form.userName + ":" + this.form.passWord)
 
 			this.$http({
             method:'POST',
@@ -66,13 +129,12 @@ export default {
             headers: headers,
 						}).then((response) => {
 				 if(response.data.flag === true){
-						this.hasShow = true
+						this.loginFormHasShow = true
 						setTimeout(function(){
 								this.fontHasShow = false
 						}.bind(this), 1000)
 						
-
-            store.commit('successMsgIsChange', response.data)
+            //store.commit('successMsgIsChange', response.data)
             store.commit('tokenIsChange', response.data.x_auth_token)
           }else{
 						
@@ -136,5 +198,20 @@ export default {
 	.fade-enter,
 	.fade-leave-active {
 		opacity: 0
+	}
+	
+	.alert-danger {
+		background-color: #f2dede;
+		border-color: #ebccd1 !important;
+		color: #a94442
+	}
+	
+	.alert {
+		text-align: center;
+		width: 35%;
+		margin: 1.5rem auto -1rem auto;
+		padding: .65rem;
+		border: 1px solid transparent;
+		border-radius: .2em
 	}
 </style>
