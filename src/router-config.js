@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import myHome from 'components/main/myHome'
 import myLogin from 'components/main/myLogin'
+import myRegister from 'components/main/myRegister'
 
 import store from './vuex-config'
 /***
@@ -15,6 +16,7 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/login', component: myLogin },
+  { path: '/join', component: myRegister },
   { path: '/', component: myHome }
   // { path: '/bar', component: Bar },
   // {

@@ -4,7 +4,7 @@
 			<router-link to="/login" class="nav-link">SIGN IN</router-link>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">JOIN</a>
+			<router-link to="/join" class="nav-link" href="#">JOIN</a>
 		</li>
 	</ul>
 </template>
