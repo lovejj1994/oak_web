@@ -12,7 +12,7 @@
 			Oak</h1>
 
 		<div id="collapseExample" v-bind:class="{'animated shake': errShow}" v-show="errShow" class="alert alert-danger">
-			{{ validator.userNameErrMsg }}<br v-show="brHasShow" /> {{ validator.passWordErrMsg }}
+			{{ validator.userNameErrMsg }}<br v-show="brHasShow" /> {{ validator.passWordErrMsg }} {{ validator.loginErrMsg }}
 		</div>
 		<div id="loginForm" v-bind:class="{ 'animated zoomOut': loginFormHasShow }">
 			<hr/>
@@ -58,7 +58,7 @@ export default {
     return {
 			form:{
 				userName: '',
-      	passWord: ''
+      			passWord: ''
 			},
 			fontHasShow: true,
       loginFormHasShow: false,
@@ -69,6 +69,7 @@ export default {
 				passWordValidation: false,
 				userNameErrMsg: '',
 				passWordErrMsg: '',
+				loginErrMsg: ''
 			},
 			errShow:false,
 			brHasShow:false
@@ -76,7 +77,7 @@ export default {
   },
 	computed:{
 		errShow: function(){
-			return '' !== this.validator.userNameErrMsg || '' !== this.validator.passWordErrMsg
+			return '' !== this.validator.userNameErrMsg || '' !== this.validator.passWordErrMsg || '' !== this.validator.loginErrMsg
 		},
 		brHasShow: function(){
 			return '' !== this.validator.userNameErrMsg && '' !== this.validator.passWordErrMsg
@@ -90,7 +91,8 @@ export default {
 				this.validator.userNamefistShow = false
 				this.validator.userNameValidation = false
 				this.validator.userNameErrMsg = 'Please enter your username'
-				this.validator.errShow = true
+				this.validator.loginErrMsg = ''
+				this.errShow = true
 			}else{
 				this.validator.userNamefistShow = false
 				this.validator.userNameValidation = true
@@ -102,6 +104,7 @@ export default {
 				this.validator.passWordfistShow = false
 				this.validator.passWordValidation = false
 				this.validator.passWordErrMsg = 'Please enter your password'
+				this.validator.loginErrMsg = ''
 				this.errShow = true
 			}else{
 				this.validator.passWordfistShow = false
@@ -125,8 +128,9 @@ export default {
 
 			this.$http({
             method:'POST',
-            url:'http://123.206.26.77:8080/login',
-            headers: headers,
+            // url:'http://123.206.26.77:8080/login',
+           url:'http://localhost/login',
+		    headers: headers,
 						}).then((response) => {
 				 if(response.data.flag === true){
 						this.loginFormHasShow = true
@@ -140,7 +144,7 @@ export default {
 						
 					}
 			}, (response) => {
-				alert("用户名或密码错误")
+				this.validator.loginErrMsg = '用户名或密码错误'
 			});
     }
   }

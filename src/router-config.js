@@ -15,9 +15,10 @@ Vue.use(VueRouter)
 // const User = { template: '<div>User</div>' }
 
 const routes = [
+  { path: '/', component: myHome },
   { path: '/login', component: myLogin },
   { path: '/join', component: myRegister },
-  { path: '/', component: myHome }
+  { path: '/*', redirect: '/' }
   // { path: '/bar', component: Bar },
   // {
   //   name: 'routeruser',
