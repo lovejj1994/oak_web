@@ -120,6 +120,7 @@ export default {
       Velocity(el, { fontSize: '1em' }, { complete: done })
     },
     submit: function () {
+		this.validator.loginErrMsg = ''
 			if(this.errShow)
 				return
 

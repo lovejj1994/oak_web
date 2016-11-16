@@ -128,47 +128,51 @@ export default {
 			this.myh1font = true
 		}.bind(this), 500);
 
-const uploader = new plupload.Uploader({
-	runtimes : 'html5,flash,silverlight,html4',
-	browse_button : 'registerIcon', // you can pass an id...
-	url : 'http://www.xxywithpq.cn:8080/hadoop/icon/upload',
-	
-	filters : {
-		max_file_size : '10mb',
-		mime_types: [
-			{title : "Image files", extensions : "jpg,gif,png,jpeg"}
-		]
-	},
-	init: {
-		PostInit: function() {
-			// document.getElementById('filelist').innerHTML = '';
-			// document.getElementById('uploadfiles').onclick = function() {
-			// 	uploader.start();
-			// 	return false;
-			// };
-		},
-		FilesAdded: function(up, files) {
-			uploader.start();
-			// plupload.each(files, function(file) {
-			// 	document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-			// });
-		},
-		UploadProgress: function(up, file) {
-			// document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-		},
-		Error: function(up, err) {
-			// document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
-		},
-		UploadComplete: function(up, files) {
-			
-		},
-		FileUploaded: function(up, file, info) {
-			const json = JSON.parse(info.response)
-			this.iconpath = json.iconpath
-        }.bind(this),
-	}
-})
-uploader.init()
+
+		setTimeout(function(){
+				const uploader = new plupload.Uploader({
+					runtimes : 'html5,flash,silverlight,html4',
+					browse_button : 'registerIcon', // you can pass an id...
+					url : 'http://www.xxywithpq.cn:8080/hadoop/icon/upload',
+					
+					filters : {
+						max_file_size : '10mb',
+						mime_types: [
+							{title : "Image files", extensions : "jpg,gif,png,jpeg"}
+						]
+					},
+					init: {
+						PostInit: function() {
+							// document.getElementById('filelist').innerHTML = '';
+							// document.getElementById('uploadfiles').onclick = function() {
+							// 	uploader.start();
+							// 	return false;
+							// };
+						},
+						FilesAdded: function(up, files) {
+							uploader.start();
+							// plupload.each(files, function(file) {
+							// 	document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+							// });
+						},
+						UploadProgress: function(up, file) {
+							// document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+						},
+						Error: function(up, err) {
+							// document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
+						},
+						UploadComplete: function(up, files) {
+							
+						},
+						FileUploaded: function(up, file, info) {
+							const json = JSON.parse(info.response)
+							this.iconpath = json.iconpath
+						}.bind(this),
+					}
+				})
+			uploader.init()
+		}.bind(this), 1500);
+
   },
   watch: {
   },
