@@ -128,8 +128,8 @@ export default {
 
 			this.$http({
             method:'POST',
-            // url:'http://123.206.26.77:8080/login',
-           url:'http://localhost/login',
+            url:'http://123.206.26.77:8080/login',
+        //    url:'http://localhost/login',
 		    headers: headers,
 						}).then((response) => {
 				 if(response.data.flag === true){
