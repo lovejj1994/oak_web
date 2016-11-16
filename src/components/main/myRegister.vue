@@ -14,8 +14,8 @@
 		<div id="loginForm">
 			<hr v-bind:class="{ 'loginFormDown': loginFormHasShow,'hrwidth' : myh1font }" />
 			<form>
-				<div id="registerIcon" v-bind:class="{ 'loginFormDown': loginFormHasShow,'myicon' : myh1font }">
-					<img src="http://photo1-1251686254.file.myqcloud.com/oak_main.jpg" alt="" class="rounded-circle">
+				<div v-bind:class="{ 'loginFormDown': loginFormHasShow,'myicon' : myh1font }">
+					<img id="registerIcon" v-bind:src="iconpath" alt="" class="rounded-circle">
 				</div>
 				<template v-if="validator.userNamefistShow">
 					<div class="form-group">
@@ -30,28 +30,24 @@
 				</template>
 				<template v-if="validator.emailfistShow">
 					<div class="form-group">
-						<!--按键监听最好放在input标签-->
 						<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
 							v-on:blur="emailBlur">
 					</div>
 				</template>
 				<template v-else>
 					<div class="form-group" v-bind:class="{'has-success': validator.emailValidation, 'has-danger': !validator.emailValidation}">
-						<!--按键监听最好放在input标签-->
 						<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
 							data-placement="left" data-toggle="popover" v-bind:data-content="validator.emailErrMsg" v-on:blur="emailBlur" v-bind:class="{'form-control-success': validator.emailValidation, 'form-control-danger': !validator.emailValidation}">
 					</div>
 				</template>
 				<template v-if="validator.passWordfistShow">
 					<div class="form-group">
-						<!--按键监听最好放在input标签-->
 						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
 							v-on:blur="passwordBlur">
 					</div>
 				</template>
 				<template v-else>
 					<div class="form-group" v-bind:class="{'has-success': validator.passWordValidation, 'has-danger': !validator.passWordValidation}">
-						<!--按键监听最好放在input标签-->
 						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
 							data-toggle="popover" v-bind:data-content="validator.passWordErrMsg" v-on:blur="passwordBlur" v-bind:class="{'form-control-success': validator.passWordValidation, 'form-control-danger': !validator.passWordValidation}">
 					</div>
@@ -70,6 +66,7 @@ export default {
 	store,
   data () {
     return {
+		iconpath:"http://photo1-1251686254.file.myqcloud.com/oak_main.jpg",
 			form:{
 				userName: '',
       			passWord: '',
@@ -134,12 +131,12 @@ export default {
 const uploader = new plupload.Uploader({
 	runtimes : 'html5,flash,silverlight,html4',
 	browse_button : 'registerIcon', // you can pass an id...
-	url : 'http://127.0.0.1/hadoop/icon/upload',
+	url : 'http://www.xxywithpq.cn:8080/hadoop/icon/upload',
 	
 	filters : {
 		max_file_size : '10mb',
 		mime_types: [
-			{title : "Image files", extensions : "jpg,gif,png"}
+			{title : "Image files", extensions : "jpg,gif,png,jpeg"}
 		]
 	},
 	init: {
@@ -161,7 +158,14 @@ const uploader = new plupload.Uploader({
 		},
 		Error: function(up, err) {
 			// document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
-		}
+		},
+		UploadComplete: function(up, files) {
+			
+		},
+		FileUploaded: function(up, file, info) {
+			const json = JSON.parse(info.response)
+			this.iconpath = json.iconpath
+        }.bind(this),
 	}
 })
 uploader.init()
