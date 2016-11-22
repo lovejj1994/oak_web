@@ -51,6 +51,7 @@
 <script>
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
+import Vue from 'vue'
 export default {
   name: 'myLogin',
 	store,
@@ -61,7 +62,7 @@ export default {
       			passWord: ''
 			},
 			fontHasShow: true,
-      loginFormHasShow: false,
+      		loginFormHasShow: false,
 			validator:{
 				userNamefistShow: true,
 				passWordfistShow: true,
@@ -124,30 +125,54 @@ export default {
 			if(this.errShow)
 				return
 
-      const headers = {}
-      headers.authorization = "Basic " + btoa(this.form.userName + ":" + this.form.passWord)
+	  const data = {}
+	  data.password = this.form.passWord
+	  data.username = this.form.userName
+	  data.grant_type = 'password'
+	  data.scope = 'read'
+	  data.client_secret = '123456'
+	  data.client_id = 'clientapp'
 
-			this.$http({
-            method:'POST',
-            url:'http://123.206.26.77:8080/login',
-        //    url:'http://localhost/login',
-		    headers: headers,
-						}).then((response) => {
+
+    //   const headers = {}
+    //   headers.authorization = "Basic " + btoa("clientapp:123456")
+	//   const basic = "Basic " + btoa("clientapp:123456")
+	//   Vue.http.headers.common['Authorization'] = basic
+	//   Vue.http.headers.common['Accept'] = 'application/json'
+	//   Vue.http.headers.delete[]
+	//   Vue.http.options.emulateJSON = true;
+	//   Vue.http.options.credentials = true;
+
+	  
+	//   Vue.http.headers.common['Accept'] = 'application/json'
+
+
+ 		const AUTH_BASIC_HEADERS = {
+			headers: {
+				'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
+			},
+  			emulateJSON: true
+		}
+
+	  Vue.http.post('http://localhost/oauth/token' ,data,AUTH_BASIC_HEADERS).then((response) => {
+
 				 if(response.data.flag === true){
 						this.loginFormHasShow = true
 						setTimeout(function(){
 								this.fontHasShow = false
 						}.bind(this), 1000)
-						
+				 }else{
+					 window.localStorage.accessToken = response.data.access_token
+				 }
             //store.commit('successMsgIsChange', response.data)
             store.commit('tokenIsChange', response.data.x_auth_token)
-          }else{
-						
-					}
-			}, (response) => {
-				this.validator.loginErrMsg = '用户名或密码错误'
-			});
-    }
+  }, (response) => {
+    this.validator.loginErrMsg = '用户名或密码错误'
+  })
+
+
+	 
+	  }
   }
 }
 </script>

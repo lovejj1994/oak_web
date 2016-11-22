@@ -171,7 +171,7 @@ export default {
 					}
 				})
 			uploader.init()
-		}.bind(this), 1500);
+		}.bind(this), 1900);
 
   },
   watch: {
@@ -242,8 +242,7 @@ export default {
 						
             //store.commit('successMsgIsChange', response.data)
             store.commit('tokenIsChange', response.data.x_auth_token)
-          }else{
-						
+          }else{	
 					}
 			}, (response) => {
 				alert("用户名或密码错误")
