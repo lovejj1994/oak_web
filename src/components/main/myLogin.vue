@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import auth from '../../auth'
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
 import Vue from 'vue'
@@ -113,8 +114,18 @@ export default {
 				this.validator.passWordErrMsg = ''
 			}	
     },
-		beforeEnter: function (el) {
+	beforeEnter: function (el) {
       el.style.opacity = 0
+    },
+	loginsuccess: function (flag) {
+      if(flag == 1){
+			 this.loginFormHasShow = true
+             setTimeout(function () {
+                 this.fontHasShow = false
+             }.bind(this), 1000)
+		}else{
+			this.validator.loginErrMsg = '用户名或密码错误'
+		}
     },
     enter: function (el, done) {
       Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
@@ -125,53 +136,45 @@ export default {
 			if(this.errShow)
 				return
 
-	  const data = {}
-	  data.password = this.form.passWord
-	  data.username = this.form.userName
-	  data.grant_type = 'password'
-	  data.scope = 'read'
-	  data.client_secret = '123456'
-	  data.client_id = 'clientapp'
+// 	  const data = {}
+// 	  data.password = this.form.passWord
+// 	  data.username = this.form.userName
+// 	  data.grant_type = 'password'
+// 	  data.scope = 'read'
+// 	  data.client_secret = '123456'
+// 	  data.client_id = 'clientapp'
 
+//  		const AUTH_BASIC_HEADERS = {
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
+// 			},
+//   			emulateJSON: true
+// 		}
 
-    //   const headers = {}
-    //   headers.authorization = "Basic " + btoa("clientapp:123456")
-	//   const basic = "Basic " + btoa("clientapp:123456")
-	//   Vue.http.headers.common['Authorization'] = basic
-	//   Vue.http.headers.common['Accept'] = 'application/json'
-	//   Vue.http.headers.delete[]
-	//   Vue.http.options.emulateJSON = true;
-	//   Vue.http.options.credentials = true;
+// 	  this.$http.post('http://localhost/oauth/token' ,data,AUTH_BASIC_HEADERS).then((response) => {
 
-	  
-	//   Vue.http.headers.common['Accept'] = 'application/json'
+// 				 if(response.ok === true){
+					 
+// 					 	window.localStorage.accessToken = response.data.access_token
+// 						window.localStorage.refreshToken = response.data.refresh_token
 
+// 						this.loginFormHasShow = true
+// 						setTimeout(function(){
+// 								this.fontHasShow = false
+// 						}.bind(this), 1000)
+// 				 }else{
+// 				 }
+//             //store.commit('successMsgIsChange', response.data)
+//             store.commit('tokenIsChange', response.data.x_auth_token)
+//   }, (response) => {
+//     this.validator.loginErrMsg = '用户名或密码错误'
+//   })
+		// 	  data.password = this.form.passWord
+// 	  data.username = this.form.userName
 
- 		const AUTH_BASIC_HEADERS = {
-			headers: {
-				'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
-			},
-  			emulateJSON: true
-		}
+		const flag = auth.login(Vue,this.form.userName,this.form.passWord,this.loginsuccess)
 
-	  Vue.http.post('http://localhost/oauth/token' ,data,AUTH_BASIC_HEADERS).then((response) => {
-
-				 if(response.data.flag === true){
-						this.loginFormHasShow = true
-						setTimeout(function(){
-								this.fontHasShow = false
-						}.bind(this), 1000)
-				 }else{
-					 window.localStorage.accessToken = response.data.access_token
-				 }
-            //store.commit('successMsgIsChange', response.data)
-            store.commit('tokenIsChange', response.data.x_auth_token)
-  }, (response) => {
-    this.validator.loginErrMsg = '用户名或密码错误'
-  })
-
-
-	 
 	  }
   }
 }
