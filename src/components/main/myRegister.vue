@@ -66,7 +66,8 @@ export default {
 	store,
   data () {
     return {
-		iconpath:"../../static/img/oak_main.jpg",
+		// iconpath:"../../static/img/oak_main.jpg",
+		iconpath:"https://p1.bqimg.com/577438/c3023ecfb8456ad3.jpg",
 			form:{
 				userName: '',
       			passWord: '',
@@ -171,7 +172,7 @@ export default {
 					}
 				})
 			uploader.init()
-		}.bind(this), 1900);
+		}.bind(this), 2800);
 
   },
   watch: {
