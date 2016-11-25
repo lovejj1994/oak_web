@@ -1,7 +1,8 @@
 <template>
 	<header id="myNav">
 		<nav class="navbar navbar-static-top navbar-dark bg-inverse" v-bind:class="{ active: isActive, 'mynav': hasShow }">
-			<img class="navbar-brand" src="../../../static/img/oak_logo.png" style=""></img>
+			<!--<img class="navbar-brand" src="../../../static/img/oak_logo.png" style=""></img>-->
+			<img class="navbar-brand" src="https://p1.bqimg.com/577438/0c90b5ca84023bf0.png" style=""></img>
 			<!--<a class="navbar-brand" href="#"></a>-->
 			<ul class="nav navbar-nav">
 				<li class="nav-item active">
