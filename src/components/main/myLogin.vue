@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import auth from '../../auth'
+import auth from '../../services/auth'
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
 import Vue from 'vue'

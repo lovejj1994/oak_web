@@ -66,7 +66,7 @@ export default {
 	store,
   data () {
     return {
-		iconpath:"http://photo1-1251686254.file.myqcloud.com/oak_main.jpg",
+		iconpath:"../../static/img/oak_main.jpg",
 			form:{
 				userName: '',
       			passWord: '',
@@ -133,8 +133,8 @@ export default {
 				const uploader = new plupload.Uploader({
 					runtimes : 'html5,flash,silverlight,html4',
 					browse_button : 'registerIcon', // you can pass an id...
-					url : 'http://www.xxywithpq.cn:8080/hadoop/icon/upload',
-					
+					url : 'https://127.0.0.1:80/hadoop/icon/upload',
+					// url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
 					filters : {
 						max_file_size : '10mb',
 						mime_types: [

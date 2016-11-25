@@ -1,7 +1,7 @@
 <template>
 	<div id='myHome'>
 		<!--<img src="~assets/img/oak_main.jpg" class="img-fluid">-->
-		<img src="~assets/img/oak_main.jpg" class="img-fluid">
+		<img src="../../../static/img/oak_main.jpg" class="img-fluid">
 		<div class="row">
 			<div class="col-md-3 offset-md-1">
 				<br/>

@@ -47,8 +47,8 @@ export default {
         //     })
 
 
-        context.http.post('https://www.xxywithpq.cn:8080/oauth/token', body, HEADERS).then((response) => {
-
+        // context.http.post('https://www.xxywithpq.cn:8080/oauth/token', body, HEADERS).then((response) => {
+            context.http.post('https://127.0.0.1:80/oauth/token', body, HEADERS).then((response) => {
             if (response.ok === true) {
 
                 window.localStorage.accessToken = response.data.access_token
