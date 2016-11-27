@@ -18,10 +18,7 @@ export default {
             headers: {
                 'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
             },
-                emulateJSON: true,
-                xhr: {
-                    async: false
-                }
+                emulateJSON: true
         }
 
         const body = {

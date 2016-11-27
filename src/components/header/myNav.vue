@@ -8,12 +8,6 @@
 				<li class="nav-item active">
 					<router-link to="/" class="nav-link">Home</router-link>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Contact</a>
-				</li>
 			</ul>
 			<myNavRight></myNavRight>
 		</nav>

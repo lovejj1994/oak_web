@@ -1,60 +1,70 @@
 <template>
-	<div id='myLogin'>
-		<h1 v-bind:class="{ 'loginFormDown': loginFormHasShow,'h1font' : myh1font }">
-			<transition mode="out-in" v-on:before-enter="beforeEnter" v-on:enter="enter" name="fade">
-				<div v-if="fontHasShow" key="Sign into">
-					Join
-				</div>
-				<div v-else key="Welcome to">
-					Welcome to
-				</div>
-			</transition>
-			Oak</h1>
-
-		<div id="loginForm">
-			<hr v-bind:class="{ 'loginFormDown': loginFormHasShow,'hrwidth' : myh1font }" />
-			<form>
-				<div v-bind:class="{ 'loginFormDown': loginFormHasShow,'myicon' : myh1font }">
-					<img id="registerIcon" v-bind:src="iconpath" alt="" class="rounded-circle">
-				</div>
-				<template v-if="validator.userNamefistShow">
-					<div class="form-group">
-						<input type="text" class="form-control" id="username" v-model.trim="form.userName" placeholder="Username" v-on:blur="usernameBlur">
+	<div>
+		<div id='myRegister' v-bind:class="{'animated fadeOut': !registershow}" v-if="registershow">
+			<h1 v-bind:class="{ 'loginFormDown': loginFormHasShow,'h1font' : myh1font }">
+				<transition mode="out-in" v-on:before-enter="beforeEnter" v-on:enter="enter" name="fade">
+					<div v-if="fontHasShow" key="Sign into">
+						Join
 					</div>
-				</template>
-				<template v-else>
-					<div class="form-group" v-bind:class="{'has-success': validator.userNameValidation, 'has-danger': !validator.userNameValidation}">
-						<input type="text" class="form-control" id="username" v-model.trim="form.userName" placeholder="Username" v-on:blur="usernameBlur"
-							data-toggle="popover" v-bind:data-content="validator.userNameErrMsg" v-bind:class="{'form-control-success': validator.userNameValidation, 'form-control-danger': !validator.userNameValidation}">
+					<div v-else key="Welcome to">
+						Welcome to
 					</div>
-				</template>
-				<template v-if="validator.emailfistShow">
-					<div class="form-group">
-						<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
-							v-on:blur="emailBlur">
+				</transition>
+				Oak</h1>
+			<div id="collapseExample" v-bind:class="{'animated shake': errShow}" v-show="errShow" class="alert alert-danger">
+				{{ registErrMsg }}
+			</div>
+			<div id="loginForm">
+				<hr v-bind:class="{ 'loginFormDown': loginFormHasShow,'hrwidth' : myh1font }" />
+				<form>
+					<div v-bind:class="{ 'loginFormDown': loginFormHasShow,'myicon' : myh1font }">
+						<img id="registerIcon" v-bind:src="iconpath" alt="" class="rounded-circle">
+						<input type="hidden" name="iconid" v-bind:value="iconid"></input>
 					</div>
-				</template>
-				<template v-else>
-					<div class="form-group" v-bind:class="{'has-success': validator.emailValidation, 'has-danger': !validator.emailValidation}">
-						<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
-							data-placement="left" data-toggle="popover" v-bind:data-content="validator.emailErrMsg" v-on:blur="emailBlur" v-bind:class="{'form-control-success': validator.emailValidation, 'form-control-danger': !validator.emailValidation}">
-					</div>
-				</template>
-				<template v-if="validator.passWordfistShow">
-					<div class="form-group">
-						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
-							v-on:blur="passwordBlur">
-					</div>
-				</template>
-				<template v-else>
-					<div class="form-group" v-bind:class="{'has-success': validator.passWordValidation, 'has-danger': !validator.passWordValidation}">
-						<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
-							data-toggle="popover" v-bind:data-content="validator.passWordErrMsg" v-on:blur="passwordBlur" v-bind:class="{'form-control-success': validator.passWordValidation, 'form-control-danger': !validator.passWordValidation}">
-					</div>
-				</template>
-				<button type="button" class="btn btn-primary" v-on:click="submit">Join</button>
-			</form>
+					<template v-if="validator.userNamefistShow">
+						<div class="form-group">
+							<input type="text" class="form-control" id="username" name="username" v-model.trim="form.userName" placeholder="Username"
+								v-on:blur="usernameBlur">
+						</div>
+					</template>
+					<template v-else>
+						<div class="form-group" v-bind:class="{'has-success': validator.userNameValidation, 'has-danger': !validator.userNameValidation}">
+							<input type="text" class="form-control" id="username" name="username" v-model.trim="form.userName" placeholder="Username"
+								v-on:blur="usernameBlur" data-toggle="popover" v-bind:data-content="validator.userNameErrMsg" v-bind:class="{'form-control-success': validator.userNameValidation, 'form-control-danger': !validator.userNameValidation}">
+						</div>
+					</template>
+					<template v-if="validator.emailfistShow">
+						<div class="form-group">
+							<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
+								v-on:blur="emailBlur">
+						</div>
+					</template>
+					<template v-else>
+						<div class="form-group" v-bind:class="{'has-success': validator.emailValidation, 'has-danger': !validator.emailValidation}">
+							<input type="email" class="form-control" id="email" v-model.trim="form.email" placeholder="Email" v-on:keyup.enter="submit"
+								data-placement="left" data-toggle="popover" v-bind:data-content="validator.emailErrMsg" v-on:blur="emailBlur" v-bind:class="{'form-control-success': validator.emailValidation, 'form-control-danger': !validator.emailValidation}">
+						</div>
+					</template>
+					<template v-if="validator.passWordfistShow">
+						<div class="form-group">
+							<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
+								v-on:blur="passwordBlur">
+						</div>
+					</template>
+					<template v-else>
+						<div class="form-group" v-bind:class="{'has-success': validator.passWordValidation, 'has-danger': !validator.passWordValidation}">
+							<input type="password" class="form-control" id="password" v-model.trim="form.passWord" placeholder="Password" v-on:keyup.enter="submit"
+								data-toggle="popover" v-bind:data-content="validator.passWordErrMsg" v-on:blur="passwordBlur" v-bind:class="{'form-control-success': validator.passWordValidation, 'form-control-danger': !validator.passWordValidation}">
+						</div>
+					</template>
+					<button type="button" class="btn btn-primary" v-on:click="submit">Join</button>
+				</form>
+			</div>
 		</div>
+		<div id="register" v-bind:class="{'animated fadeIn': !registershow}" v-if="!registershow">
+			<h5>注册成功,请接收激活邮件</h5>
+		</div>
+
 	</div>
 </template>
 
@@ -62,12 +72,14 @@
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
 export default {
-  name: 'myLogin',
+  name: 'myRegister',
 	store,
   data () {
     return {
+		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"https://p1.bqimg.com/577438/c3023ecfb8456ad3.jpg",
+		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-737bf781-e20a-4e10-9143-e480df626d34-0.png?op=OPEN",
+		iconid:"",
 			form:{
 				userName: '',
       			passWord: '',
@@ -88,6 +100,8 @@ export default {
 				emailErrMsg: ''
 			},
 			// errShow:false,
+			registErrMsg:'',
+			errShow:false,
 			brHasShow:false
     }
   },
@@ -168,6 +182,7 @@ export default {
 						FileUploaded: function(up, file, info) {
 							const json = JSON.parse(info.response)
 							this.iconpath = json.iconpath
+							this.iconid = json.iconid
 						}.bind(this),
 					}
 				})
@@ -227,27 +242,30 @@ export default {
 		if(!this.validator.passWordValidation || !this.validator.passWordValidation || !this.validator.userNameValidation)
 			return
 
-      const headers = {}
-      headers.authorization = "Basic " + btoa(this.form.userName + ":" + this.form.passWord)
+ 		const HEADERS = {
+			 emulateJSON: true
+        }
 
-			this.$http({
-            method:'POST',
-            url:'http://123.206.26.77:8080/login',
-            headers: headers,
-						}).then((response) => {
-				 if(response.data.flag === true){
-						this.loginFormHasShow = true
-						setTimeout(function(){
-								this.fontHasShow = false
-						}.bind(this), 1000)
-						
-            //store.commit('successMsgIsChange', response.data)
-            store.commit('tokenIsChange', response.data.x_auth_token)
-          }else{	
-					}
-			}, (response) => {
+		const body = {
+            username: this.form.userName,
+            password: this.form.passWord,
+            email: this.form.email
+        }
+
+	  this.$http.post('https://127.0.0.1:80/auth/regist', body, HEADERS).then((response) => {
+	      if(response.data.flag === true){
+			  this.errShow = false,
+			  this.registershow = false
+          }else{
+			  this.errShow = true
+			  this.registErrMsg = response.data.msg
+		  }
+
+		  }, (response) => {
 				alert("用户名或密码错误")
-			});
+		  });
+
+
     }
   }
 }
@@ -291,6 +309,12 @@ export default {
 	button {
 		width: 100%;
 		margin-top: 2rem;
+	}
+	
+	#register {
+		width: 17%;
+		margin: auto;
+		margin-top: 9rem;
 	}
 	
 	.loginFormDown {
@@ -342,8 +366,8 @@ export default {
 	.alert {
 		text-align: center;
 		width: 35%;
-		margin: 1.5rem auto -1rem auto;
-		padding: .65rem;
+		margin: 2.2rem auto -2rem auto;
+		padding: .45rem;
 		border: 1px solid transparent;
 		border-radius: .2em
 	}
