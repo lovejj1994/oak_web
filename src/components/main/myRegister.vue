@@ -251,8 +251,8 @@ export default {
             password: this.form.passWord,
             email: this.form.email
         }
-
-	  this.$http.post('https://127.0.0.1:80/auth/regist', body, HEADERS).then((response) => {
+ this.$http.post('https://www.xxywithpq:8080/auth/regist', body, HEADERS).then((response) => {
+	//   this.$http.post('https://127.0.0.1:80/auth/regist', body, HEADERS).then((response) => {
 	      if(response.data.flag === true){
 			  this.errShow = false,
 			  this.registershow = false
