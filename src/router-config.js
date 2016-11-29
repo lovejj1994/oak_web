@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import myHome from 'components/main/myHome'
 import myLogin from 'components/main/myLogin'
 import myRegister from 'components/main/myRegister'
+import registSuccess from 'components/main/registSuccess'
 
 import store from './vuex-config'
 /***
@@ -18,6 +19,7 @@ const routes = [
   { path: '/', component: myHome },
   { path: '/login', component: myLogin },
   { path: '/join', component: myRegister },
+  { path: '/registSuccess', component: registSuccess },
   { path: '/*', redirect: '/' }
   // { path: '/bar', component: Bar },
   // {
