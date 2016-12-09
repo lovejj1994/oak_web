@@ -78,7 +78,7 @@ export default {
     return {
 		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-71637ef6-351c-43ba-998e-ab60b33567c5-0.png?op=OPEN",
+		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
 		iconid:"",
 			form:{
 				userName: '',
@@ -148,8 +148,8 @@ export default {
 				const uploader = new plupload.Uploader({
 					runtimes : 'html5,flash,silverlight,html4',
 					browse_button : 'registerIcon', // you can pass an id...
-					url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
-				    // url : 'http://127.0.0.1:80/hadoop/icon/upload',
+					// url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
+				     url : 'http://127.0.0.1:80/hadoop/icon/upload',
 					filters : {
 						max_file_size : '10mb',
 						mime_types: [
