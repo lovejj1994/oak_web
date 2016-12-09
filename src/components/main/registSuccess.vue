@@ -28,6 +28,8 @@ export default {
   },
   mounted: function () {
 		this.alertSet('激活成功,前往首页');
+		alert(this.$route.params.username)
+		alert(this.$route.params.post_id)
   },
   watch: {
   },
@@ -40,7 +42,7 @@ export default {
 					document.getElementById("js-sec-text").innerHTML = t,
 						setInterval(function() {
 								if(0 == t) {
-									location.href = "#"; //#时间到后跳转地址
+									location.href = "/"; //#时间到后跳转地址
 								} else {
 									t -= 1,
 										document.getElementById("js-sec-text").innerHTML = t;
@@ -60,7 +62,7 @@ export default {
 	.alert-box {
 		display: none;
 		position: relative;
-		margin: 96px auto 0;
+		margin: 8rem auto 0;
 		padding: 180px 85px 22px;
 		border-radius: 10px 10px 0 0;
 		width: 286px;

@@ -19,7 +19,7 @@ const routes = [
   { path: '/', component: myHome },
   { path: '/login', component: myLogin },
   { path: '/join', component: myRegister },
-  { path: '/registSuccess', component: registSuccess },
+  { path: '/registSuccess/:username/p/:post_id', component: registSuccess },
   { path: '/*', redirect: '/' }
   // { path: '/bar', component: Bar },
   // {

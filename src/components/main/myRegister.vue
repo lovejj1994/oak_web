@@ -15,7 +15,7 @@
 				{{ registErrMsg }}
 			</div>
 			<div id="loginForm">
-				<hr v-bind:class="{ 'loginFormDown': loginFormHasShow,'hrwidth' : myh1font }" />
+				<hr v-bind:class="{ 'loginFormDown': loginFormHasShow }" />
 				<form>
 					<div v-bind:class="{ 'loginFormDown': loginFormHasShow,'myicon' : myh1font }">
 						<img id="registerIcon" v-bind:src="iconpath" alt="" class="rounded-circle">
@@ -78,7 +78,7 @@ export default {
     return {
 		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-737bf781-e20a-4e10-9143-e480df626d34-0.png?op=OPEN",
+		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-71637ef6-351c-43ba-998e-ab60b33567c5-0.png?op=OPEN",
 		iconid:"",
 			form:{
 				userName: '',
@@ -148,8 +148,8 @@ export default {
 				const uploader = new plupload.Uploader({
 					runtimes : 'html5,flash,silverlight,html4',
 					browse_button : 'registerIcon', // you can pass an id...
-					// url : 'https://127.0.0.1:80/hadoop/icon/upload',
-				    url : 'https://127.0.0.1:80/hadoop/icon/upload',
+					url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
+				    // url : 'http://127.0.0.1:80/hadoop/icon/upload',
 					filters : {
 						max_file_size : '10mb',
 						mime_types: [
@@ -249,10 +249,11 @@ export default {
 		const body = {
             username: this.form.userName,
             password: this.form.passWord,
-            email: this.form.email
+            email: this.form.email,
+			iconid: this.iconid
         }
- this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
-	//   this.$http.post('https://127.0.0.1:80/auth/regist', body, HEADERS).then((response) => {
+//  this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
+	  this.$http.post('http://localhost:80/auth/regist', body, HEADERS).then((response) => {
 	      if(response.data.flag === true){
 			  this.errShow = false,
 			  this.registershow = false
@@ -265,7 +266,6 @@ export default {
 				alert("用户名或密码错误")
 		  });
 
-
     }
   }
 }
@@ -274,6 +274,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	#myRegister {
+		width: 35%;
+		margin: auto;
+	}
+	
 	img {
 		padding: .25rem;
 		border: .1rem solid #ddd;
@@ -292,7 +297,6 @@ export default {
 	}
 	
 	form {
-		width: 35%;
 		margin: auto;
 		margin-top: 3rem;
 	}
@@ -303,7 +307,6 @@ export default {
 	
 	hr {
 		margin-top: 3rem;
-		width: 45%;
 	}
 	
 	button {
@@ -327,10 +330,6 @@ export default {
 		/* Opera */
 	}
 	
-	.hrwidth {
-		width: 35%;
-	}
-	
 	.myicon {
 		margin-bottom: 1rem;
 		margin-top: -2rem;
@@ -338,8 +337,8 @@ export default {
 	
 	.h1font {
 		margin-bottom: -1.8rem;
-		margin-right: 22.8rem;
-		font-size: 1.7rem;
+		margin-right: 0rem;
+		font-size: 1.9rem;
 	}
 	
 	.rounded-circle {
@@ -365,7 +364,6 @@ export default {
 	
 	.alert {
 		text-align: center;
-		width: 35%;
 		margin: 2.2rem auto -2rem auto;
 		padding: .45rem;
 		border: 1px solid transparent;
