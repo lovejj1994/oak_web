@@ -252,8 +252,8 @@ export default {
             email: this.form.email,
 			iconid: this.iconid
         }
-//  this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
-	  this.$http.post('http://localhost:80/auth/regist', body, HEADERS).then((response) => {
+ this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
+	//   this.$http.post('http://localhost:80/auth/regist', body, HEADERS).then((response) => {
 	      if(response.data.flag === true){
 			  this.errShow = false,
 			  this.registershow = false
