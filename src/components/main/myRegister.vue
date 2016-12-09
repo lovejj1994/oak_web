@@ -148,8 +148,8 @@ export default {
 				const uploader = new plupload.Uploader({
 					runtimes : 'html5,flash,silverlight,html4',
 					browse_button : 'registerIcon', // you can pass an id...
-					// url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
-				     url : 'http://127.0.0.1:80/hadoop/icon/upload',
+					url : 'https://www.xxywithpq.cn:8080/hadoop/icon/upload',
+				    //  url : 'http://127.0.0.1:80/hadoop/icon/upload',
 					filters : {
 						max_file_size : '10mb',
 						mime_types: [
