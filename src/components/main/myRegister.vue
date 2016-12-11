@@ -251,7 +251,7 @@ export default {
     submit: function () {
 		if(this.validator.userNamefistShow || this.validator.emailfistShow || this.validator.passWordfistShow)
 			return
-		if(!this.validator.passWordValidation || !this.validator.passWordValidation || !this.validator.userNameValidation)
+		if(!this.validator.passWordValidation || !this.validator.emailValidation || !this.validator.userNameValidation)
 			return
 
  		const HEADERS = {
