@@ -6,6 +6,26 @@ export default {
     useVue(vue) {
         this.Vue = vue
     },
+    regist(context, body, HEADERS, callback) {
+        if (this.user.authenticated) {
+            if (callback) {
+                callback(true)
+            }
+            return
+        }
+
+        context.http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
+            if (response.data.flag === true) {
+                callback(1, response)
+            } else {
+                callback(0, response)
+            }
+
+        }, (response) => {
+            callback(3, response)
+        });
+
+    },
     login(context, username, password, callback) {
         if (this.user.authenticated) {
             if (callback) {
@@ -18,7 +38,7 @@ export default {
             headers: {
                 'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
             },
-                emulateJSON: true
+            emulateJSON: true
         }
 
         const body = {

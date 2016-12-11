@@ -69,8 +69,10 @@
 </template>
 
 <script>
+import auth from '../../services/auth'
 import store from '../../vuex-config'
 import Velocity from '../../../static/velocity/velocity.min.js'
+import Vue from 'vue'
 export default {
   name: 'myRegister',
 	store,
@@ -78,7 +80,7 @@ export default {
     return {
 		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
+		iconpath:"http://www.xxywithpq.cn:50070/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
 		iconid:"",
 			form:{
 				userName: '',
@@ -235,6 +237,16 @@ export default {
     enter: function (el, done) {
       Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
       Velocity(el, { fontSize: '1em' }, { complete: done })
+    },registsuccess: function (flag,response) {
+      if(flag == 1){
+			this.errShow = false,
+            this.registershow = false
+		}else if(flag == 0){
+			 this.errShow = true
+             this.registErrMsg = response.data.msg
+		}else{
+			this.registErrMsg = '服务器出错'
+		}
     },
     submit: function () {
 		if(this.validator.userNamefistShow || this.validator.emailfistShow || this.validator.passWordfistShow)
@@ -252,19 +264,11 @@ export default {
             email: this.form.email,
 			iconid: this.iconid
         }
- this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
-	//   this.$http.post('http://localhost:80/auth/regist', body, HEADERS).then((response) => {
-	      if(response.data.flag === true){
-			  this.errShow = false,
-			  this.registershow = false
-          }else{
-			  this.errShow = true
-			  this.registErrMsg = response.data.msg
-		  }
 
-		  }, (response) => {
-				alert("用户名或密码错误")
-		  });
+		const flag = auth.regist(Vue,body,HEADERS,this.registsuccess)
+
+//  this.$http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
+
 
     }
   }
