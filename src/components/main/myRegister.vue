@@ -80,7 +80,7 @@ export default {
     return {
 		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"http://www.xxywithpq.cn:50070/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
+		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
 		iconid:"",
 			form:{
 				userName: '',
