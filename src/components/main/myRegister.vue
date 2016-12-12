@@ -231,6 +231,11 @@ export default {
 				this.validator.passWordErrMsg = ''
 			}	
     },
+	validate:function(){
+		this.usernameBlur()
+		this.emailBlur()
+		this.passwordBlur()
+	},
 	beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -249,6 +254,7 @@ export default {
 		}
     },
     submit: function () {
+		this.validate()
 		if(this.validator.userNamefistShow || this.validator.emailfistShow || this.validator.passWordfistShow)
 			return
 		if(!this.validator.passWordValidation || !this.validator.emailValidation || !this.validator.userNameValidation)

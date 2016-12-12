@@ -114,6 +114,10 @@ export default {
 				this.validator.passWordErrMsg = ''
 			}	
     },
+	validate:function(){
+		this.usernameBlur()
+		this.passwordBlur()
+	},
 	beforeEnter: function (el) {
       el.style.opacity = 0
     },
@@ -132,6 +136,7 @@ export default {
       Velocity(el, { fontSize: '1em' }, { complete: done })
     },
     submit: function () {
+		this.validate()
 		this.validator.loginErrMsg = ''
 			if(this.errShow)
 				return

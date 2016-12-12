@@ -13,8 +13,8 @@ export default {
             }
             return
         }
-
-        context.http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
+        context.http.post('http://localhost:80/auth/regist', body, HEADERS).then((response) => {
+            // context.http.post('https://www.xxywithpq.cn:8080/auth/regist', body, HEADERS).then((response) => {
             if (response.data.flag === true) {
                 callback(1, response)
             } else {

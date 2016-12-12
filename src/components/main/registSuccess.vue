@@ -28,8 +28,8 @@ export default {
   },
   mounted: function () {
 		this.alertSet('激活成功,前往首页');
-		alert(this.$route.params.username)
-		alert(this.$route.params.post_id)
+		console.log(this.$route.params.username) 
+		console.log(this.$route.params.activecode)
   },
   watch: {
   },
