@@ -41,7 +41,8 @@
 				activecode: this.$route.params.activecode
 			}
 
-			this.$http.post('http://127.0.0.1:80/auth/active', body, HEADERS).then((response) => {
+			this.$http.post('https://www.xxywithpq.cn:8080/auth/active', body, HEADERS).then((response) => {
+				// this.$http.post('http://127.0.0.1:80/auth/active', body, HEADERS).then((response) => {
 				if (response.data.flag === true) {
 					store.commit('loginSuccess', true)
 					this.alertSet('激活成功,前往首页')
