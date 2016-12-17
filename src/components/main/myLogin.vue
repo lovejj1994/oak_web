@@ -49,140 +49,141 @@
 </template>
 
 <script>
-import auth from '../../services/auth'
-import store from '../../vuex-config'
-import Velocity from '../../../static/velocity/velocity.min.js'
-import Vue from 'vue'
-export default {
-  name: 'myLogin',
-	store,
-  data () {
-    return {
-			form:{
-				userName: '',
-      			passWord: ''
-			},
-			fontHasShow: true,
-      		loginFormHasShow: false,
-			validator:{
-				userNamefistShow: true,
-				passWordfistShow: true,
-				userNameValidation: false,
-				passWordValidation: false,
-				userNameErrMsg: '',
-				passWordErrMsg: '',
-				loginErrMsg: ''
-			},
-			errShow:false,
-			brHasShow:false
-    }
-  },
-	computed:{
-		errShow: function(){
-			return '' !== this.validator.userNameErrMsg || '' !== this.validator.passWordErrMsg || '' !== this.validator.loginErrMsg
+	import auth from '../../services/auth'
+	import store from '../../vuex-config'
+	import Velocity from '../../../static/velocity/velocity.min.js'
+	import Vue from 'vue'
+	export default {
+		name: 'myLogin',
+		store,
+		data() {
+			return {
+				form: {
+					userName: '',
+					passWord: ''
+				},
+				fontHasShow: true,
+				loginFormHasShow: false,
+				validator: {
+					userNamefistShow: true,
+					passWordfistShow: true,
+					userNameValidation: false,
+					passWordValidation: false,
+					userNameErrMsg: '',
+					passWordErrMsg: '',
+					loginErrMsg: ''
+				},
+				errShow: false,
+				brHasShow: false
+			}
 		},
-		brHasShow: function(){
-			return '' !== this.validator.userNameErrMsg && '' !== this.validator.passWordErrMsg
-		}
-	},
-	ready: function () {
-  },
-  methods: { 
-		usernameBlur: function () {
-      if('' === this.form.userName){
-				this.validator.userNamefistShow = false
-				this.validator.userNameValidation = false
-				this.validator.userNameErrMsg = 'Please enter your username'
+		computed: {
+			errShow: function () {
+				return '' !== this.validator.userNameErrMsg || '' !== this.validator.passWordErrMsg || '' !== this.validator.loginErrMsg
+			},
+			brHasShow: function () {
+				return '' !== this.validator.userNameErrMsg && '' !== this.validator.passWordErrMsg
+			}
+		},
+		ready: function () {
+		},
+		methods: {
+			usernameBlur: function () {
+				if ('' === this.form.userName) {
+					this.validator.userNamefistShow = false
+					this.validator.userNameValidation = false
+					this.validator.userNameErrMsg = 'Please enter your username'
+					this.validator.loginErrMsg = ''
+					this.errShow = true
+				} else {
+					this.validator.userNamefistShow = false
+					this.validator.userNameValidation = true
+					this.validator.userNameErrMsg = ''
+				}
+			},
+			passwordBlur: function () {
+				if ('' === this.form.passWord) {
+					this.validator.passWordfistShow = false
+					this.validator.passWordValidation = false
+					this.validator.passWordErrMsg = 'Please enter your password'
+					this.validator.loginErrMsg = ''
+					this.errShow = true
+				} else {
+					this.validator.passWordfistShow = false
+					this.validator.passWordValidation = true
+					this.validator.passWordErrMsg = ''
+				}
+			},
+			validate: function () {
+				this.usernameBlur()
+				this.passwordBlur()
+			},
+			beforeEnter: function (el) {
+				el.style.opacity = 0
+			},
+			loginsuccess: function (flag) {
+				if (flag == 1) {
+					store.commit('loginSuccess', true)
+					this.loginFormHasShow = true
+					setTimeout(function () {
+						this.fontHasShow = false
+					}.bind(this), 1000)
+				} else {
+					this.validator.loginErrMsg = '用户名或密码错误'
+				}
+			},
+			enter: function (el, done) {
+				Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+				Velocity(el, { fontSize: '1em' }, { complete: done })
+			},
+			submit: function () {
+				this.validate()
 				this.validator.loginErrMsg = ''
-				this.errShow = true
-			}else{
-				this.validator.userNamefistShow = false
-				this.validator.userNameValidation = true
-				this.validator.userNameErrMsg = ''
-			}	
-    },
-		passwordBlur: function () {
-      if('' === this.form.passWord){
-				this.validator.passWordfistShow = false
-				this.validator.passWordValidation = false
-				this.validator.passWordErrMsg = 'Please enter your password'
-				this.validator.loginErrMsg = ''
-				this.errShow = true
-			}else{
-				this.validator.passWordfistShow = false
-				this.validator.passWordValidation = true
-				this.validator.passWordErrMsg = ''
-			}	
-    },
-	validate:function(){
-		this.usernameBlur()
-		this.passwordBlur()
-	},
-	beforeEnter: function (el) {
-      el.style.opacity = 0
-    },
-	loginsuccess: function (flag) {
-      if(flag == 1){
-			 this.loginFormHasShow = true
-             setTimeout(function () {
-                 this.fontHasShow = false
-             }.bind(this), 1000)
-		}else{
-			this.validator.loginErrMsg = '用户名或密码错误'
+				if (this.errShow)
+					return
+
+				// 	  const data = {}
+				// 	  data.password = this.form.passWord
+				// 	  data.username = this.form.userName
+				// 	  data.grant_type = 'password'
+				// 	  data.scope = 'read'
+				// 	  data.client_secret = '123456'
+				// 	  data.client_id = 'clientapp'
+
+				//  		const AUTH_BASIC_HEADERS = {
+				// 			headers: {
+				// 				'Content-Type': 'application/json',
+				// 				'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
+				// 			},
+				//   			emulateJSON: true
+				// 		}
+
+				// 	  this.$http.post('http://localhost/oauth/token' ,data,AUTH_BASIC_HEADERS).then((response) => {
+
+				// 				 if(response.ok === true){
+
+				// 					 	window.localStorage.accessToken = response.data.access_token
+				// 						window.localStorage.refreshToken = response.data.refresh_token
+
+				// 						this.loginFormHasShow = true
+				// 						setTimeout(function(){
+				// 								this.fontHasShow = false
+				// 						}.bind(this), 1000)
+				// 				 }else{
+				// 				 }
+				//             //store.commit('successMsgIsChange', response.data)
+				//             store.commit('tokenIsChange', response.data.x_auth_token)
+				//   }, (response) => {
+				//     this.validator.loginErrMsg = '用户名或密码错误'
+				//   })
+				// 	  data.password = this.form.passWord
+				// 	  data.username = this.form.userName
+
+				const flag = auth.login(Vue, this.form.userName, this.form.passWord, this.loginsuccess)
+
+			}
 		}
-    },
-    enter: function (el, done) {
-      Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
-      Velocity(el, { fontSize: '1em' }, { complete: done })
-    },
-    submit: function () {
-		this.validate()
-		this.validator.loginErrMsg = ''
-			if(this.errShow)
-				return
-
-// 	  const data = {}
-// 	  data.password = this.form.passWord
-// 	  data.username = this.form.userName
-// 	  data.grant_type = 'password'
-// 	  data.scope = 'read'
-// 	  data.client_secret = '123456'
-// 	  data.client_id = 'clientapp'
-
-//  		const AUTH_BASIC_HEADERS = {
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 				'Authorization': "Basic " + btoa("clientapp:123456"), // Base64(client_id:client_secret) "demoapp:demopass"
-// 			},
-//   			emulateJSON: true
-// 		}
-
-// 	  this.$http.post('http://localhost/oauth/token' ,data,AUTH_BASIC_HEADERS).then((response) => {
-
-// 				 if(response.ok === true){
-					 
-// 					 	window.localStorage.accessToken = response.data.access_token
-// 						window.localStorage.refreshToken = response.data.refresh_token
-
-// 						this.loginFormHasShow = true
-// 						setTimeout(function(){
-// 								this.fontHasShow = false
-// 						}.bind(this), 1000)
-// 				 }else{
-// 				 }
-//             //store.commit('successMsgIsChange', response.data)
-//             store.commit('tokenIsChange', response.data.x_auth_token)
-//   }, (response) => {
-//     this.validator.loginErrMsg = '用户名或密码错误'
-//   })
-		// 	  data.password = this.form.passWord
-// 	  data.username = this.form.userName
-
-		const flag = auth.login(Vue,this.form.userName,this.form.passWord,this.loginsuccess)
-
-	  }
-  }
-}
+	}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

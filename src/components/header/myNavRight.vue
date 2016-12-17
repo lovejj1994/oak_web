@@ -1,5 +1,5 @@
 <template>
-	<ul class="nav navbar-nav">
+	<ul class="nav navbar-nav" v-if="!loginSuccess">
 		<li class="nav-item">
 			<router-link to="/login" class="nav-link">SIGN IN</router-link>
 		</li>
@@ -16,7 +16,13 @@ export default {
   store,
   data () {
     return {
+			loginSuccess:store.state.loginSuccess,
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+	computed: {
+    loginSuccess: function () {
+      return store.state.loginSuccess
     }
   }
 }
