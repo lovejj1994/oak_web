@@ -42,13 +42,17 @@
 </template>
 
 <script>
-export default {
-  name: 'myHome'
-}
+	export default {
+		name: 'myHome'
+	}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.row{
+		width: 100%;
+	}
+
 	img {
 		width: 100%;
 		height: 36rem;
