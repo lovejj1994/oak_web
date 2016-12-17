@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    loginSuccess: false,
     routerIsRun: true,
     token: '',
     successMsg: {
@@ -13,6 +14,9 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    loginSuccess(state, n) {
+      state.loginSuccess = n
+    },
     routerIsRun(state, n) {
       state.routerIsRun = n
     },

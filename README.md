@@ -3,6 +3,10 @@
 
 > To the oak tree
 
+2016.11.16 登陆注册模块苦逼开发中
+
+2016.11.24 调通oauth2授权+ssl，继续完善授权模块
+
 ## Build Setup
 
 ``` bash
