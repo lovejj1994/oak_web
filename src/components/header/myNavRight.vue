@@ -32,7 +32,6 @@ export default {
 <style scoped>
 	ul {
 		float: right;
-		margin-right: 7rem;
 	}
 	
 	.navbar-nav .nav-link {
