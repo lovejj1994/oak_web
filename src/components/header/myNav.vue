@@ -1,17 +1,12 @@
 <template>
 	<header id="myNav">
 		<nav class="navbar navbar-static-top navbar-dark bg-inverse" v-bind:class="{ active: isActive, 'mynav': hasShow }">
-			<img class="navbar-brand" src="~assets/img/oak_logo.png" style=""></img>
+			<!--<img class="navbar-brand" src="../../../static/img/oak_logo.png" style=""></img>-->
+			<img class="navbar-brand" src="https://p1.bqimg.com/577438/0c90b5ca84023bf0.png" style=""></img>
 			<!--<a class="navbar-brand" href="#"></a>-->
 			<ul class="nav navbar-nav">
 				<li class="nav-item active">
 					<router-link to="/" class="nav-link">Home</router-link>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">About</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Contact</a>
 				</li>
 			</ul>
 			<myNavRight></myNavRight>
@@ -35,9 +30,7 @@ export default {
     }
   },
   computed: {
-    // a computed getter
     hasShow: function () {
-      // `this` points to the vm instance
       return this.$store.state.routerIsRun
     }
   }

@@ -1,10 +1,10 @@
 <template>
-	<ul class="nav navbar-nav">
+	<ul class="nav navbar-nav" v-if="!loginSuccess">
 		<li class="nav-item">
 			<router-link to="/login" class="nav-link">SIGN IN</router-link>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">JOIN</a>
+			<router-link to="/join" class="nav-link" href="#">JOIN</a>
 		</li>
 	</ul>
 </template>
@@ -16,7 +16,13 @@ export default {
   store,
   data () {
     return {
+			loginSuccess:store.state.loginSuccess,
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+	computed: {
+    loginSuccess: function () {
+      return store.state.loginSuccess
     }
   }
 }

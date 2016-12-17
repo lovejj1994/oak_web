@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import myHome from 'components/main/myHome'
 import myLogin from 'components/main/myLogin'
+import myRegister from 'components/main/myRegister'
+import registSuccess from 'components/main/registSuccess'
 
 import store from './vuex-config'
 /***
@@ -14,8 +16,11 @@ Vue.use(VueRouter)
 // const User = { template: '<div>User</div>' }
 
 const routes = [
+  { path: '/', component: myHome },
   { path: '/login', component: myLogin },
-  { path: '/', component: myHome }
+  { path: '/join', component: myRegister },
+  { path: '/registSuccess/u/:username/code/:activecode', component: registSuccess },
+  { path: '/*', redirect: '/' }
   // { path: '/bar', component: Bar },
   // {
   //   name: 'routeruser',
@@ -38,17 +43,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.fullPath === '/' && from.fullPath === '/') {
+  if (to.fullPath !== '/') {
+    store.commit('routerIsRun', false)
+  } else {
     store.commit('routerIsRun', true)
-    next()
-  } else
-    if (to.fullPath === '/') {
-      store.commit('routerIsRun', true)
-      next()
-    } else {
-      store.commit('routerIsRun', false)
-      next()
-    }
+  }
+  next()
 })
 
 export default router
