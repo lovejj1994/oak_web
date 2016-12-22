@@ -122,7 +122,7 @@
 				el.style.opacity = 0
 			},
 			loginsuccess: function (flag) {
-				if (flag == 1) {
+				if (flag === 1) {
 					store.commit('loginSuccess', true)
 					this.loginFormHasShow = true
 					setTimeout(function () {

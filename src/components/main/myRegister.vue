@@ -80,7 +80,7 @@ export default {
     return {
 		registershow:true,
 		// iconpath:"../../static/img/oak_main.jpg",
-		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-433862fa-b45a-433f-976d-c6eaa3a2cabf-0.png?op=OPEN",
+		iconpath:"https://www.xxywithpq.cn:50470/webhdfs/v1/icon3/icon-428ec9a5-7ba9-44c2-9b00-59841459dc70-0.png?op=OPEN",
 		iconid:"",
 			form:{
 				userName: '',
@@ -243,10 +243,10 @@ export default {
       Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
       Velocity(el, { fontSize: '1em' }, { complete: done })
     },registsuccess: function (flag,response) {
-      if(flag == 1){
+      if(flag === 1){
 			this.errShow = false,
             this.registershow = false
-		}else if(flag == 0){
+		}else if(flag === 0){
 			 this.errShow = true
              this.registErrMsg = response.data.msg
 		}else{
